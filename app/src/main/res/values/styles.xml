@@ -8,7 +8,6 @@
     </style>
 
     <style name="TextStyle">
-        <item name="android:layout_marginTop">14dp</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">48sp</item>
     </style>
