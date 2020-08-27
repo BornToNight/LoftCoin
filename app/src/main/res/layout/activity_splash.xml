@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/artboard_top"
-        app:layout_constraintEnd_toStartOf="@+id/v_guideline"
+        app:layout_constraintEnd_toStartOf="@id/v_guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -31,15 +31,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/artboard_bottom"
-        app:layout_constraintStart_toEndOf="@+id/v_guideline"
-        app:layout_constraintTop_toTopOf="@+id/h_guideline" />
+        app:layout_constraintStart_toEndOf="@id/v_guideline"
+        app:layout_constraintTop_toTopOf="@id/h_guideline" />
 
     <ImageView
         android:id="@+id/icon"
         android:layout_width="160dp"
         android:layout_height="160dp"
-        android:layout_marginTop="220dp"
-        android:layout_marginBottom="260dp"
         android:src="@drawable/icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,14 +47,12 @@
     <TextView
         android:id="@+id/app_name"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginTop="14dp"
         android:text="@string/app_name"
-        android:textColor="@android:color/white"
-        android:textSize="48sp"
+        android:layout_height="0dp"
+        style="@style/TextStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/icon" />
+        app:layout_constraintTop_toBottomOf="@id/icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
