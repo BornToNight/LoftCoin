@@ -1,8 +1,10 @@
-package com.borntonight.loftcoin;
+package com.borntonight.loftcoin.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.borntonight.loftcoin.R;
 
 public class MainActivity extends AppCompatActivity {
 
