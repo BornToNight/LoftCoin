@@ -11,10 +11,11 @@ import com.borntonight.loftcoin.databinding.LiWalletBinding;
 class WalletsAdapter extends RecyclerView.Adapter<WalletsAdapter.ViewHolder> {
 
     private LayoutInflater inflater;
+    private int walletsCount = 10; // заглушка
 
     @Override
     public int getItemCount() {
-        return 10;
+        return walletsCount;
     }
 
     @NonNull
