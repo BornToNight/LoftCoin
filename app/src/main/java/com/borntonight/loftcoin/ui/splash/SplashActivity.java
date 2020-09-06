@@ -1,4 +1,4 @@
-package com.borntonight.loftcoin.activity;
+package com.borntonight.loftcoin.ui.splash;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.PreferenceManager;
 
 import com.borntonight.loftcoin.R;
+import com.borntonight.loftcoin.ui.main.MainActivity;
+import com.borntonight.loftcoin.ui.welcome.WelcomeActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
