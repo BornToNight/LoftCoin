@@ -18,9 +18,15 @@ import androidx.recyclerview.widget.SnapHelper;
 import com.borntonight.loftcoin.R;
 import com.borntonight.loftcoin.databinding.FragmentWalletsBinding;
 
+import javax.inject.Inject;
+
 public class WalletsFragment extends Fragment {
 
     private SnapHelper walletsSnapHelper;
+
+    @Inject
+    public WalletsFragment() {
+    }
 
     @Nullable
     @Override
@@ -38,16 +44,12 @@ public class WalletsFragment extends Fragment {
         final TypedValue value = new TypedValue();
         view.getContext().getTheme().resolveAttribute(R.attr.walletCardWidth, value, true);
         final DisplayMetrics displayMetrics = view.getContext().getResources().getDisplayMetrics();
-        final int padding = (int) (displayMetrics.widthPixels - value.getDimension(displayMetrics)) / 2; // вычисляем ценрт экрана для отступов
+        final int padding = (int) (displayMetrics.widthPixels - value.getDimension(displayMetrics)) / 2;
         binding.recycler.setPadding(padding, 0, padding, 0);
-        binding.recycler.setClipToPadding(false); // не обрезать контент по падингу
-
-        binding.recycler.addOnScrollListener(new CarouselScroller());
+        binding.recycler.setClipToPadding(false);
 
         binding.recycler.setLayoutManager(new LinearLayoutManager(view.getContext(), RecyclerView.HORIZONTAL, false));
-        binding.recycler.setAdapter(new WalletsAdapter());
-        binding.recycler.setVisibility(View.VISIBLE);
-        binding.walletCard.setVisibility(View.GONE);
+        binding.recycler.addOnScrollListener(new CarouselScroller());
     }
 
     @Override
@@ -59,16 +61,15 @@ public class WalletsFragment extends Fragment {
     private static class CarouselScroller extends RecyclerView.OnScrollListener {
         @Override
         public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-            final int centerX = (recyclerView.getLeft() + recyclerView.getRight()) / 2; // центр recyclerView
-            for (int i = 0; i < recyclerView.getChildCount(); ++i) { // ChildCount - кол-во отрисовываемых элементов
+            final int centerX = (recyclerView.getLeft() + recyclerView.getRight()) / 2;
+            for (int i = 0; i < recyclerView.getChildCount(); ++i) {
                 final View child = recyclerView.getChildAt(i);
-                final int childCenterX = (child.getLeft() + child.getRight()) / 2; // центр child
-                final float childOffset = Math.abs(centerX - childCenterX) / (float) centerX; // 1.2, 0, 1.2
-                float factor = (float) (Math.pow(0.80, childOffset));
+                final int childCenterX = (child.getLeft() + child.getRight()) / 2;
+                final float childOffset = Math.abs(centerX - childCenterX) / (float) centerX;
+                float factor = (float) (Math.pow(0.85, childOffset));
                 child.setScaleX(factor);
                 child.setScaleY(factor);
             }
         }
     }
-
 }

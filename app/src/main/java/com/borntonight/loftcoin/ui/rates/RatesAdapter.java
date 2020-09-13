@@ -15,18 +15,23 @@ import com.borntonight.loftcoin.BuildConfig;
 import com.borntonight.loftcoin.R;
 import com.borntonight.loftcoin.data.Coin;
 import com.borntonight.loftcoin.databinding.LiRateBinding;
-import com.borntonight.loftcoin.utill.OutlineCircle;
-import com.borntonight.loftcoin.utill.PercentFormatter;
-import com.borntonight.loftcoin.utill.PriceFormatter;
-import com.squareup.picasso.Picasso;
+import com.borntonight.loftcoin.util.ImageLoader;
+import com.borntonight.loftcoin.util.OutlineCircle;
+import com.borntonight.loftcoin.util.PercentFormatter;
+import com.borntonight.loftcoin.util.PriceFormatter;
 
+import java.util.List;
 import java.util.Objects;
 
-public class RatesAdapter extends ListAdapter<Coin, RatesAdapter.ViewHolder> {
+import javax.inject.Inject;
+
+class RatesAdapter extends ListAdapter<Coin, RatesAdapter.ViewHolder> {
 
     private final PriceFormatter priceFormatter;
 
     private final PercentFormatter percentFormatter;
+
+    private final ImageLoader imageLoader;
 
     private LayoutInflater inflater;
 
@@ -34,7 +39,8 @@ public class RatesAdapter extends ListAdapter<Coin, RatesAdapter.ViewHolder> {
 
     private int colorPositive = Color.GREEN;
 
-    RatesAdapter(PriceFormatter priceFormatter, PercentFormatter percentFormatter) {
+    @Inject
+    RatesAdapter(PriceFormatter priceFormatter, PercentFormatter percentFormatter, ImageLoader imageLoader) {
         super(new DiffUtil.ItemCallback<Coin>() {
             @Override
             public boolean areItemsTheSame(@NonNull Coin oldItem, @NonNull Coin newItem) {
@@ -45,9 +51,15 @@ public class RatesAdapter extends ListAdapter<Coin, RatesAdapter.ViewHolder> {
             public boolean areContentsTheSame(@NonNull Coin oldItem, @NonNull Coin newItem) {
                 return Objects.equals(oldItem, newItem);
             }
+
+            @Override
+            public Object getChangePayload(@NonNull Coin oldItem, @NonNull Coin newItem) {
+                return newItem;
+            }
         });
         this.priceFormatter = priceFormatter;
         this.percentFormatter = percentFormatter;
+        this.imageLoader = imageLoader;
         setHasStableIds(true);
     }
 
@@ -66,16 +78,27 @@ public class RatesAdapter extends ListAdapter<Coin, RatesAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Coin coin = getItem(position);
         holder.binding.symbol.setText(coin.symbol());
-        holder.binding.price.setText(priceFormatter.format(coin.price()));
+        holder.binding.price.setText(priceFormatter.format(coin.currencyCode(), coin.price()));
         holder.binding.change.setText(percentFormatter.format(coin.change24h()));
         if (coin.change24h() > 0) {
             holder.binding.change.setTextColor(colorPositive);
         } else {
             holder.binding.change.setTextColor(colorNegative);
         }
-        Picasso.get()
+        imageLoader
                 .load(BuildConfig.IMG_ENDPOINT + coin.id() + ".png")
                 .into(holder.binding.logo);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull List<Object> payloads) {
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position);
+        } else {
+            final Coin coin = (Coin) payloads.get(0);
+            holder.binding.price.setText(priceFormatter.format(coin.currencyCode(), coin.price()));
+            holder.binding.change.setText(percentFormatter.format(coin.change24h()));
+        }
     }
 
     @Override

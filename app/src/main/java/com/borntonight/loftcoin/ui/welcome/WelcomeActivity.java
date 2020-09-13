@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.SnapHelper;
 
 import com.borntonight.loftcoin.databinding.ActivityWelcomeBinding;
 import com.borntonight.loftcoin.ui.main.MainActivity;
-import com.borntonight.loftcoin.ui.widget.CircleIndicator;
+import com.borntonight.loftcoin.widget.CircleIndicator;
 
 public class WelcomeActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.borntonight.loftcoin.utill;
+package com.borntonight.loftcoin.util;
 
 import androidx.annotation.NonNull;
 
