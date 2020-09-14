@@ -6,22 +6,25 @@ import com.google.auto.value.AutoValue;
 import com.google.auto.value.extension.memoized.Memoized;
 import com.squareup.moshi.Json;
 
+import java.util.Iterator;
+import java.util.Map;
+
 @AutoValue
 public abstract class CmcCoin implements Coin {
 
     @Memoized
     @Override
     public double price() {
-//        final Iterator<? extends Quote> iterator = quote().values().iterator();
-//        if (iterator.hasNext()) return iterator.next().price();
+        final Iterator<? extends Quote> iterator = quote().values().iterator();
+        if (iterator.hasNext()) return iterator.next().price();
         return 0d;
     }
 
     @Memoized
     @Override
     public double change24h() {
-//        final Iterator<? extends Quote> iterator = quote().values().iterator();
-//        if (iterator.hasNext()) return iterator.next().change24h();
+        final Iterator<? extends Quote> iterator = quote().values().iterator();
+        if (iterator.hasNext()) return iterator.next().change24h();
         return 0d;
     }
 
@@ -33,7 +36,7 @@ public abstract class CmcCoin implements Coin {
     @Nullable
     public abstract String currencyCode();
 
-//    abstract Map<String, AutoValue_CmcCoin_Quote> quote();
+    abstract Map<String, AutoValue_CmcCoin_Quote> quote();
 
     @AutoValue
     abstract static class Quote {
