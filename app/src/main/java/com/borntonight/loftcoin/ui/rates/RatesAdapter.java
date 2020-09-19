@@ -16,9 +16,9 @@ import com.borntonight.loftcoin.R;
 import com.borntonight.loftcoin.data.Coin;
 import com.borntonight.loftcoin.databinding.LiRateBinding;
 import com.borntonight.loftcoin.util.ImageLoader;
-import com.borntonight.loftcoin.util.OutlineCircle;
 import com.borntonight.loftcoin.util.PercentFormatter;
 import com.borntonight.loftcoin.util.PriceFormatter;
+import com.borntonight.loftcoin.widget.OutlineCircle;
 
 import java.util.List;
 import java.util.Objects;

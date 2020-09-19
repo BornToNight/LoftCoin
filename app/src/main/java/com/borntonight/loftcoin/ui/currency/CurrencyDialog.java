@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.borntonight.loftcoin.BaseComponent;
 import com.borntonight.loftcoin.R;
 import com.borntonight.loftcoin.databinding.DialogCurrencyBinding;
-import com.borntonight.loftcoin.util.OnItemClick;
+import com.borntonight.loftcoin.widget.OnItemClick;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import javax.inject.Inject;
@@ -33,15 +33,15 @@ public class CurrencyDialog extends AppCompatDialogFragment {
     @Inject
     public CurrencyDialog(BaseComponent baseComponent) {
         component = DaggerCurrencyComponent.builder()
-                .baseComponent(baseComponent)
-                .build();
+            .baseComponent(baseComponent)
+            .build();
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this, component.viewModelFactory())
-                .get(CurrencyViewModel.class);
+            .get(CurrencyViewModel.class);
         adapter = new CurrencyAdapter();
     }
 
@@ -50,9 +50,9 @@ public class CurrencyDialog extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         binding = DialogCurrencyBinding.inflate(getLayoutInflater());
         return new MaterialAlertDialogBuilder(requireActivity())
-                .setTitle(R.string.choose_currency)
-                .setView(binding.getRoot())
-                .create();
+            .setTitle(R.string.choose_currency)
+            .setView(binding.getRoot())
+            .create();
     }
 
     @Override

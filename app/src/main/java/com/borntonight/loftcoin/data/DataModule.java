@@ -15,6 +15,7 @@ import dagger.Provides;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
 @Module
@@ -24,24 +25,25 @@ public abstract class DataModule {
     static Moshi moshi() {
         final Moshi moshi = new Moshi.Builder().build();
         return moshi.newBuilder()
-                .add(Coin.class, moshi.adapter(AutoValue_CmcCoin.class))
-                .add(Listings.class, moshi.adapter(AutoValue_Listings.class))
-                .build();
+            .add(Coin.class, moshi.adapter(AutoValue_CmcCoin.class))
+            .add(Listings.class, moshi.adapter(AutoValue_Listings.class))
+            .build();
     }
 
     @Provides
     static Retrofit retrofit(OkHttpClient httpClient, Moshi moshi) {
         final Retrofit.Builder builder = new Retrofit.Builder();
         builder.client(httpClient.newBuilder()
-                .addInterceptor(chain -> {
-                    final Request request = chain.request();
-                    return chain.proceed(request.newBuilder()
-                            .addHeader(CmcApi.API_KEY, BuildConfig.API_KEY)
-                            .build());
-                })
-                .build());
+            .addInterceptor(chain -> {
+                final Request request = chain.request();
+                return chain.proceed(request.newBuilder()
+                    .addHeader(CmcApi.API_KEY, BuildConfig.API_KEY)
+                    .build());
+            })
+            .build());
         builder.baseUrl(BuildConfig.API_ENDPOINT);
         builder.addConverterFactory(MoshiConverterFactory.create(moshi));
+        builder.addCallAdapterFactory(RxJava2CallAdapterFactory.createAsync());
         return builder.build();
     }
 
@@ -54,7 +56,7 @@ public abstract class DataModule {
     @Singleton
     static LoftDatabase loftDatabase(Context context) {
         if (BuildConfig.DEBUG) {
-            return Room.inMemoryDatabaseBuilder(context, LoftDatabase.class).build(); // Пересоздание БД каждый раз
+            return Room.inMemoryDatabaseBuilder(context, LoftDatabase.class).build();
         } else {
             return Room.databaseBuilder(context, LoftDatabase.class, "loft.db").build();
         }
@@ -65,5 +67,8 @@ public abstract class DataModule {
 
     @Binds
     abstract CurrencyRepo currencyRepo(CurrencyRepoImpl impl);
+
+    @Binds
+    abstract WalletsRepo walletsRepo(WalletsRepoImpl impl);
 
 }

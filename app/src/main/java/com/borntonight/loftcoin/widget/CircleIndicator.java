@@ -54,4 +54,5 @@ public class CircleIndicator extends RecyclerView.ItemDecoration {
     private void drawIndicator(@NonNull Canvas c, float x, float y, boolean active) {
         c.drawCircle(x, y, indicatorRadius, active ? activePaint : inactivePaint);
     }
+
 }
