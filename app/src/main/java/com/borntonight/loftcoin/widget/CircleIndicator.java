@@ -1,4 +1,4 @@
-package com.borntonight.loftcoin.ui.widget;
+package com.borntonight.loftcoin.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;
