@@ -1,4 +1,4 @@
-package com.borntonight.loftcoin.ui.rates;
+package com.borntonight.loftcoin.ui.wallets;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -11,15 +11,17 @@ import dagger.Component;
 
 @Singleton
 @Component(modules = {
-    RatesModule.class,
+    WalletsModule.class,
     ViewModelModule.class
 }, dependencies = {
     BaseComponent.class
 })
-abstract class RatesComponent {
+abstract class WalletsComponent {
 
     abstract ViewModelProvider.Factory viewModelFactory();
 
-    abstract RatesAdapter ratesAdapter();
+    abstract WalletsAdapter walletsAdapter();
+
+    abstract TransactionsAdapter transactionsAdapter();
 
 }

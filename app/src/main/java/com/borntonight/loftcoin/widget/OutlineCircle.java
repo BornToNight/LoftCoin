@@ -1,4 +1,4 @@
-package com.borntonight.loftcoin.util;
+package com.borntonight.loftcoin.widget;
 
 import android.graphics.Outline;
 import android.view.View;

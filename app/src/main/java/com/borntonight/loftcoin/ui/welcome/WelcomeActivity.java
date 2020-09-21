@@ -31,12 +31,13 @@ public class WelcomeActivity extends AppCompatActivity {
         binding.recycler.setLayoutManager(new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false));
         binding.recycler.addItemDecoration(new CircleIndicator(this));
         binding.recycler.setAdapter(new WelcomeAdapter());
+        binding.recycler.setHasFixedSize(true);
         helper = new PagerSnapHelper();
         helper.attachToRecyclerView(binding.recycler);
-        binding.btnStart.setOnClickListener(view -> {
+        binding.btnStart.setOnClickListener((v) -> {
             PreferenceManager.getDefaultSharedPreferences(this).edit()
-                    .putBoolean(KEY_SHOW_WELCOME, false)
-                    .apply();
+                .putBoolean(KEY_SHOW_WELCOME, false)
+                .apply();
             startActivity(new Intent(this, MainActivity.class));
             finish();
         });

@@ -21,6 +21,7 @@ public class PriceFormatter implements Formatter<Double> {
 
     static {
         LOCALES.put("RUB", new Locale("ru", "RU"));
+        LOCALES.put("USD", Locale.US);
         LOCALES.put("EUR", Locale.GERMANY);
     }
 
@@ -36,7 +37,7 @@ public class PriceFormatter implements Formatter<Double> {
         Locale locale = LOCALES.get(currency);
         if (locale == null) {
             final LocaleListCompat locales = ConfigurationCompat.getLocales(
-                    context.getResources().getConfiguration());
+                context.getResources().getConfiguration());
             locale = locales.get(0);
         }
         return NumberFormat.getCurrencyInstance(locale).format(value);
