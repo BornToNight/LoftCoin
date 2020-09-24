@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 import com.borntonight.loftcoin.data.Coin;
 import com.borntonight.loftcoin.data.CoinsRepo;
 import com.borntonight.loftcoin.data.CurrencyRepo;
+import com.borntonight.loftcoin.util.DoubleParser;
 import com.borntonight.loftcoin.util.RxSchedulers;
 
 import java.util.List;
@@ -77,7 +78,7 @@ class ConverterViewModel extends ViewModel {
         return fromValue
             .observeOn(schedulers.cmp())
             .map((s) -> s.isEmpty() ? "0.0" : s)
-            .map(Double::parseDouble)
+            .map(DoubleParser::parseToDouble)
             .flatMap((value) -> factor.map((f) -> value * f))
             .map(v -> String.format(Locale.US, "%.2f", v))
             .map((v) -> "0.0".equals(v) ? "" : v)
